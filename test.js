@@ -4,7 +4,7 @@ var FlowerPower = require('./index');
 
 var hasCalibratedData = false;
 
-FlowerPower.discoverall(function(flowerPower) {
+FlowerPower.discoverAll(function(flowerPower) {
   async.series([
     function(callback) {
       flowerPower.on('disconnect', function() {
