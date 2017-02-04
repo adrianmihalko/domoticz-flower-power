@@ -1,8 +1,7 @@
-var async = require('async'); 
-
-var FlowerPower = require('./index'); 
-
-var hasCalibratedData = false; 
+/*
+Set up domoticz data
+format DeviceMACadress,SunlightIDX,SoilEcIDX,SoilTempIDX,AirTempIDX,SoilMoistIDX
+*/
 
 var DomSunlight = 0;
 var DomSoilEC = 0;
@@ -12,6 +11,11 @@ var DomSoilMoisture = 0;
 var DomBatteryLevel = 0;
 var DomSystemID = '-';
 
+var async = require('async'); 
+
+var FlowerPower = require('./index'); 
+
+var hasCalibratedData = false; 
 
 FlowerPower.discoverAll(function(flowerPower) { 
   async.series([ 
@@ -118,6 +122,8 @@ FlowerPower.discoverAll(function(flowerPower) {
       }); 
     }, 
 
+
+    //Causes disconnect, do not use
     /* 
     function(callback) { 
       console.log('readFriendlyName'); 
@@ -206,6 +212,8 @@ FlowerPower.discoverAll(function(flowerPower) {
             }); 
           }, 
 
+
+          //Calibrated Soil readings does not work, causes disconnect. Do not use
           /* 
           function(callback) { 
             console.log('readCalibratedEa'); 
@@ -245,6 +253,17 @@ FlowerPower.discoverAll(function(flowerPower) {
                 console.log('DomAirTemp result = ' + DomAirTemp);
                 console.log('DomSoilMoisture result = ' + DomSoilMoisture);
                 console.log('DomBatteryLevel result = ' + DomBatteryLevel);
+            //Create Domoticz update strings
+            //FIND IDX's for System ID
+            
+            //Create Domoticz update strings
+            
+            
+            //Execute Domoticz update strings
+        
+                
+                
+                
             callback(); 
           } 
         ]); 
@@ -253,6 +272,8 @@ FlowerPower.discoverAll(function(flowerPower) {
       } 
     }, 
 
+
+    //Turned off Live mode, uses too much battery
     /* 
     function(callback) { 
       console.log('enableLiveMode'); 
@@ -290,10 +311,14 @@ FlowerPower.discoverAll(function(flowerPower) {
       } 
     }, 
     */ 
+    
+    //Consider commenting out the LedPulse and LedOff to save battery, keep the Delay or not all plants are updated
     function(callback) { 
       console.log('ledPulse'); 
       flowerPower.ledPulse(callback); 
     }, 
+    
+    //Keep Delay in or increase, my 3 Flowerpowers needed 10000 to collect all data before disconnect.
     function(callback) { 
       console.log('delay'); 
       setTimeout(callback, 10000); 
