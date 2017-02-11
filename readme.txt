@@ -10,8 +10,6 @@ Note down/copy the flowerpower Mac Adresses somewhere
 ctrl -c
 cd ~
 sudo npm install flower-power
---npm install mqtt --save
---sudo npm install mqtt -g
 sudo npm install hashmap
 sudo npm install --save async
 sudo npm install noble
