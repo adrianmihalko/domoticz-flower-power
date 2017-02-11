@@ -20,4 +20,4 @@ git clone https://github.com/Justinb81/domoticz-flower-power
 
 cd domoticz-flower-power
 
-node FP2DOM.js
+node FP2DOM.js a0143d0877f2
