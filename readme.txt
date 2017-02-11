@@ -1,5 +1,5 @@
 
-sudo apt-get install git libdbus-1-dev bluez libdbus-glib-1-dev libglib2.0-dev libical-dev libreadline-dev libudev-dev libusb-dev glib2.0 bluetooth libbluetooth-dev make
+sudo apt-get install git libdbus-1-dev bluez libdbus-glib-1-dev libglib2.0-dev libical-dev libreadline-dev libudev-dev libusb-dev glib2.0 bluetooth libbluetooth-dev
 
 bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
 sudo reboot
