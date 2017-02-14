@@ -16,6 +16,7 @@ var FlowerPower = require('./indexFP');
 var hasCalibratedData = false; 
 var uuid = "undefined";
 var battery = "0"; 
+var UpdateSuccess = "0";
 
 
 
@@ -25,13 +26,14 @@ var DomoticzIP = "192.168.2.201:8080"
 
 var idConvertion = new HashMap();
 //notation: ("flowerpowermac", IDXSUN-IDXSOILEC-IDXSOILTEMP-IDXAirtemp-IDXSoilMoist)
-idConvertion.set("a0143d0877f2", "510-509-511-508-507");
+idConvertion.set("a0143d0877f2", "524-527-526-514-525");
 idConvertion.set("a0143d0d8a61", "519-516-520-518-521");
-idConvertion.set("a0143d08b7da", "510-509-511-508-507");
+idConvertion.set("a0143d08b7da", "523-509-511-508-522");
 
   
   
-  
+//for UpdateSuccess
+//turn this into function retry
   
   FlowerPower.discoverById(SensorID,function(flowerPower) { 
     async.series([ 
@@ -42,49 +44,50 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
        
         }); 
   
-        flowerPower.on('sunlightChange', function(sunlight) { 
-          console.log('sunlight = ' + sunlight.toFixed(2) + ' mol/m²/d'); 
-        }); 
-  
-         flowerPower.on('soilElectricalConductivityChange', function(soilElectricalConductivity) { 
-           console.log('soil electrical conductivity = ' + soilElectricalConductivity.toFixed(2)); 
-         }); 
-  
-        flowerPower.on('soilTemperatureChange', function(temperature) { 
-          console.log('soil temperature = ' + temperature.toFixed(2) + '°C'); 
-        }); 
-  
-        flowerPower.on('airTemperatureChange', function(temperature) { 
-          console.log('air temperature = ' + temperature.toFixed(2) + '°C'); 
-        }); 
-  
-        flowerPower.on('soilMoistureChange', function(soilMoisture) { 
-          console.log('soil moisture = ' + soilMoisture.toFixed(2) + '%'); 
-        }); 
-  
-        flowerPower.on('calibratedSoilMoistureChange', function(soilMoisture) { 
-          console.log('calibrated soil moisture = ' + soilMoisture.toFixed(2) + '%'); 
-        }); 
-  
-        flowerPower.on('calibratedAirTemperatureChange', function(temperature) { 
-          console.log('calibrated air temperature = ' + temperature.toFixed(2) + '°C'); 
-        }); 
-  
-        flowerPower.on('calibratedSunlightChange', function(sunlight) { 
-          console.log('calibrated sunlight = ' + sunlight.toFixed(2) + ' mol/m²/d'); 
-        }); 
-  
-        flowerPower.on('calibratedEaChange', function(ea) { 
-          console.log('calibrated EA = ' + ea.toFixed(2)); 
-        }); 
-  
-        flowerPower.on('calibratedEcbChange', function(ecb) { 
-          console.log('calibrated ECB = ' + ecb.toFixed(2) + ' dS/m'); 
-        }); 
-  
-        flowerPower.on('calibratedEcPorousChange', function(ecPorous) { 
-          console.log('calibrated EC porous = ' + ecPorous.toFixed(2)+ ' dS/m'); 
-        }); 
+      flowerPower.on('sunlightChange', function(sunlight) {
+        console.log('\tsunlight = ' + sunlight.toFixed(2) + ' mol/m²/d');
+      });
+
+       flowerPower.on('soilElectricalConductivityChange', function(soilElectricalConductivity) {
+         console.log('soil electrical conductivity = ' + soilElectricalConductivity.toFixed(2));
+       });
+
+      flowerPower.on('soilTemperatureChange', function(temperature) {
+        console.log('\tsoil temperature = ' + temperature.toFixed(2) + '°C');
+      });
+
+      flowerPower.on('airTemperatureChange', function(temperature) {
+        console.log('\tair temperature = ' + temperature.toFixed(2) + '°C');
+      });
+
+      flowerPower.on('soilMoistureChange', function(soilMoisture) {
+        console.log('\tsoil moisture = ' + soilMoisture.toFixed(2) + '%');
+      });
+
+      flowerPower.on('calibratedSoilMoistureChange', function(soilMoisture) {
+        console.log('\tcalibrated soil moisture = ' + soilMoisture.toFixed(2) + '%');
+      });
+
+      flowerPower.on('calibratedAirTemperatureChange', function(temperature) {
+        console.log('\tcalibrated air temperature = ' + temperature.toFixed(2) + '°C');
+      });
+
+      flowerPower.on('calibratedSunlightChange', function(sunlight) {
+        console.log('\tcalibrated sunlight = ' + sunlight.toFixed(2) + ' mol/m²/d');
+      });
+
+      flowerPower.on('calibratedEaChange', function(ea) {
+        console.log('\tcalibrated EA = ' + ea.toFixed(2));
+      });
+
+      flowerPower.on('calibratedEcbChange', function(ecb) {
+        console.log('\tcalibrated ECB = ' + ecb.toFixed(2) + ' dS/m');
+      });
+
+      flowerPower.on('calibratedEcPorousChange', function(ecPorous) {
+        console.log('\tcalibrated EC porous = ' + ecPorous.toFixed(2)+ ' dS/m');
+      });
+
   
         console.log('serial id of this flowerpower : ' + flowerPower.uuid);
         uuid = flowerPower.uuid;
@@ -141,19 +144,7 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
         }); 
       }, 
   
-  
-      //Causes disconnect, do not use
-      /* 
-      function(callback) { 
-        console.log('readFriendlyName'); 
-        flowerPower.readFriendlyName(function(error, friendlyName) { 
-          console.log('\tfriendly name = ' + friendlyName); 
-  
-          console.log('writeFriendlyName'); 
-          flowerPower.writeFriendlyName(friendlyName, callback); 
-        }); 
-      }, 
-      */ 
+
   
       function(callback) { 
         console.log('readColor'); 
@@ -206,26 +197,26 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
       function(callback) { 
         if (hasCalibratedData) { 
           async.series([ 
-            function(callback) { 
-              console.log('readCalibratedSoilMoisture'); 
-              flowerPower.readCalibratedSoilMoisture(function(error, soilMoisture) { 
-                console.log('calibrated soil moisture = ' + soilMoisture.toFixed(2) + '%'); 
+          function(callback) {
+            console.log('readCalibratedSoilMoisture');
+            flowerPower.readCalibratedSoilMoisture(function(error, soilMoisture) {
+              console.log('\tcalibrated soil moisture = ' + soilMoisture.toFixed(2) + '%');
                   DomSoilMoisture = soilMoisture.toFixed(2);
                 callback(); 
               }); 
             }, 
-            function(callback) { 
-              console.log('readCalibratedAirTemperature'); 
-              flowerPower.readCalibratedAirTemperature(function(error, temperature) { 
-                console.log('calibrated air temperature = ' + temperature.toFixed(2) + '°C'); 
+          function(callback) {
+            console.log('readCalibratedAirTemperature');
+            flowerPower.readCalibratedAirTemperature(function(error, temperature) {
+              console.log('\tcalibrated air temperature = ' + temperature.toFixed(2) + '°C');
                    DomAirTemp = temperature.toFixed(2);
                 callback(); 
               }); 
             }, 
-            function(callback) { 
-              console.log('readCalibratedSunlight'); 
-              flowerPower.readCalibratedSunlight(function(error, sunlight) { 
-                console.log('calibrated sunlight = ' + sunlight.toFixed(2) + ' mol/m²/d'); 
+          function(callback) {
+            console.log('readCalibratedSunlight');
+            flowerPower.readCalibratedSunlight(function(error, sunlight) {
+              console.log('\tcalibrated sunlight = ' + sunlight.toFixed(2) + ' mol/m²/d');
                DomSunlight = sunlight.toFixed(2);
                 callback(); 
               }); 
@@ -233,34 +224,34 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
   
   
             //Calibrated Soil readings does not work, causes disconnect. Do not use
-            /* 
-            function(callback) { 
-              console.log('readCalibratedEa'); 
-              flowerPower.readCalibratedEa(function(error, ea) { 
-                console.log('calibrated EA = ' + ea.toFixed(2)); 
+             /*
+          function(callback) {
+            console.log('readCalibratedEa');
+            flowerPower.readCalibratedEa(function(error, ea) {
+              console.log('\tcalibrated EA = ' + ea.toFixed(2));
   
                 callback(); 
               }); 
             }, 
   
   
-            function(callback) { 
-              console.log('readCalibratedEcb'); 
-              flowerPower.readCalibratedEcb(function(error, ecb) { 
-                console.log('calibrated ECB = ' + ecb.toFixed(2) + ' dS/m'); 
+          function(callback) {
+            console.log('readCalibratedEcb');
+            flowerPower.readCalibratedEcb(function(error, ecb) {
+              console.log('\tcalibrated ECB = ' + ecb.toFixed(2) + ' dS/m');
   
                 callback(); 
               }); 
             }, 
-            function(callback) { 
-              console.log('readCalibratedEcPorous'); 
-              flowerPower.readCalibratedEcPorous(function(error, ecPorous) { 
-                console.log('calibrated EC porous = ' + ecPorous.toFixed(2) + ' dS/m'); 
+          function(callback) {
+            console.log('readCalibratedEcPorous');
+            flowerPower.readCalibratedEcPorous(function(error, ecPorous) {
+              console.log('\tcalibrated EC porous = ' + ecPorous.toFixed(2) + ' dS/m');
   
                 callback(); 
               }); 
             }, 
-            */ 
+          */   
   
   
   
@@ -300,7 +291,7 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
                   var SoilMoisturePost = '/json.htm?type=command&param=udevice&idx=' + idxarray[4] + '&nvalue=0&svalue=' + DomSoilMoisture + 'TEMP&battery=' + DomBatteryLevel;
                   requestify.post('http://' + DomoticzIP + SoilMoisturePost, { })
        
-                              
+                  UpdateSuccess = "1"; 
   
   		        
   	         }
@@ -317,45 +308,7 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
         } 
       }, 
   
-  
-      //Turned off Live mode, uses too much battery
-      /* 
-      function(callback) { 
-        console.log('enableLiveMode'); 
-        flowerPower.enableLiveMode(callback); 
-      }, 
-      function(callback) { 
-        console.log('live mode'); 
-        setTimeout(callback, 5000); 
-      }, 
-      function(callback) { 
-        console.log('disableLiveMode'); 
-        flowerPower.disableLiveMode(callback); 
-      }, 
-      function(callback) { 
-        if (hasCalibratedData) { 
-          async.series([ 
-            function(callback) { 
-              console.log('enableCalibratedLiveMode'); 
-              flowerPower.enableCalibratedLiveMode(callback); 
-            }, 
-            function(callback) { 
-              console.log('calibrated live mode'); 
-              setTimeout(callback, 5000); 
-            }, 
-            function(callback) { 
-              console.log('disableCalibratedLiveMode'); 
-              flowerPower.disableCalibratedLiveMode(callback); 
-            }, 
-            function() { 
-              callback(); 
-            } 
-          ]); 
-        } else { 
-          callback(); 
-        } 
-      }, 
-      */ 
+ 
       
       //Consider commenting out the LedPulse and LedOff to save battery,
       function(callback) { 
@@ -363,10 +316,10 @@ idConvertion.set("a0143d08b7da", "510-509-511-508-507");
         flowerPower.ledPulse(callback); 
       }, 
       
-      //Keep Delay in or increase
+      //Keep Delay in?
       function(callback) { 
         console.log('delay'); 
-        setTimeout(callback, 5000); 
+        setTimeout(callback, 2000); 
       }, 
       function(callback) { 
         console.log('ledOff'); 
