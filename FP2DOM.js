@@ -26,8 +26,11 @@ var DomoticzIP = "192.168.2.201:8080"
 
 var idConvertion = new HashMap();
 //notation: ("flowerpowermac", IDXSUN-IDXSOILEC-IDXSOILTEMP-IDXAirtemp-IDXSoilMoist)
+//Genetisch Gemodificeerde Dracaena - Wageningen
 idConvertion.set("a0143d0877f2", "524-527-526-514-525");
+//Grote Dracaena
 idConvertion.set("a0143d0d8a61", "519-516-520-518-521");
+//Kleine Dracaena
 idConvertion.set("a0143d08b7da", "523-509-511-508-522");
 
   
