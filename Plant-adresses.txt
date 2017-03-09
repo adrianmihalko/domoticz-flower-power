@@ -1,5 +1,9 @@
-C47C8D62A7DE Flower care - Tomaat groot
-C47C8D61FCF3 Flower care - Spinazie
+C4:7C:8D:62:A7:DE Flower care - Tomaat groot
+C4:7C:8D:62:A9:DC Flower care - Cherry Tomaat
+C4:7C:8D:61:FC:F3 Flower care - Spinazie
+C4:7C:8D:61:07:FE Flower care - Paprika
+C4:7C:8D:63:1B:EE Flower care - Tomaat2
+
 a0143d0877f2 Flower Power - Genetisch Gemodificeerde Dracaena - Wageningen
 a0143d0d8a61 Flower Power - Grote Dracaena
 a0143d08b7da Flower Power - Kleine Dracaena
