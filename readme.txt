@@ -8,17 +8,29 @@ Note down/copy the flowerpower Mac Adresses somewhere
 
 ctrl -c
 cd ~
-sudo npm install flower-power-ble
-//sudo npm install flower-power
-sudo npm install hashmap
-sudo npm install --save async
-//sudo npm install noble
 
 git clone https://github.com/Justinb81/domoticz-flower-power
 
 cd domoticz-flower-power
 
-node fp2dom.js a0143d0877f2
+sudo npm install flower-power-ble
+sudo npm install hashmap
+sudo npm install async
+sudo npm install noble
+sudo npm install noble-device
+sudo npm install requestify
+
+Edit FP2DOM.js:
+
+1, edit Domoticz address
+2, fill your Domoticz's dummy device details and add your Flower Power MAC address (without colons):
+
+//notation: ("flowerpowermac", IDXSUN-IDXSOILEC-IDXSOILTEMP-IDXAirtemp-IDXSoilM$
+idConvertion.set("a0143d7d9338", "43-44-45-46-47");
+
+Run project:
+
+node ./FP2DOM.js a0143d0877f2
 
 
 ----
